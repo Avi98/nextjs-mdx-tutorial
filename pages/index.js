@@ -27,22 +27,23 @@ export default function Home ({ postFile }) {
 export async function getStaticProps () {
   const mdFiles = await fs.promises.readdir('data')
 
-  console.log('mdFils', mdFiles)
   const postFile = mdFiles.map(file => {
-    const slug = file.replace((/.md$/,''))
+    const slug = file.replace(/.md$/, '')
     const [yr, month, date, ...rest] = slug.split('-')
-
+    
     const createdAt =(new Date(`${yr} ${month} ${date}`)).getTime()
     const title = rest.join( ' ')
-
-
+    
+    
     return {
       slug,
       createdAt,
       title
     }
   })
-
+  
+  console.log('mdFils', mdFiles)
+  console.log('mdFils', postFile)
   return {
     props:{
       postFile
